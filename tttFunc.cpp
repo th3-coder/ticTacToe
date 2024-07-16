@@ -12,19 +12,6 @@ int gamePlay()
     
     do 
     {
-        counter++;
-        if(counter % 2 == 0)
-            player = 1;
-        else
-            player = 2;
-        if(player == 1)
-        xo = 'X';   
-        else
-            xo = 'O';
-
-        cout << "Enter where you want to go(1-9): ";
-        cin >> userInput;
-
         for(int i = 0; i < 3; i++)
         {
             for(int j = 0; j < 3; j++)
@@ -124,7 +111,24 @@ int gamePlay()
             }    
                 cout << endl;
             }
+        cout << endl;
+        counter++;
         win = checkWin(board);
+
+        if(counter % 2 == 0)
+            player = 1;
+        else
+            player = 2;
+        if(player == 1)
+            xo = 'X';   
+        else
+            xo = 'O';
+
+        if(win == 0)
+        {
+        cout << xo << " - Enter where you want to go(1-9): ";
+        cin >> userInput;
+        }
     } while(win == 0);
 
     return 1;
@@ -137,34 +141,67 @@ int checkWin(char board[3][3]){
     if(board[0][0] == board[0][1] && board[0][1] == board[0][2])
     {
         win = 1;
+        if(board[0][0] == 'X')
+            cout << "Player 1 Wins!";
+        else
+            cout << "Player 2 Wins!";
+
     }
     else if(board[1][0] == board[1][1] && board[1][1] == board[1][2])
     {
         win = 1;
+        if(board[1][0] == 'X')
+            cout << "Player 1 Wins!";
+        else
+            cout << "Player 2 Wins!";
     }
     else if(board[2][0] == board[2][1] && board[2][1] == board[2][2])
     {
         win = 1;
+        if(board[2][0] == 'X')
+            cout << "Player 1 Wins!";
+        else
+            cout << "Player 2 Wins!";
     }
     else if(board[0][0] == board[1][0] && board[1][0] == board[2][0])
     {
         win = 1;
+        if(board[0][0] == 'X')
+            cout << "Player 1 Wins!";
+        else
+            cout << "Player 2 Wins!";
     }
     else if(board[0][1] == board[1][1] && board[1][1] == board[2][1])
     {
         win = 1;
+        if(board[0][1] == 'X')
+            cout << "Player 1 Wins!";
+        else
+            cout << "Player 2 Wins!";
     }
     else if(board[0][2] == board[1][2] && board[1][2] == board[2][2])
     {
         win = 1;
+        if(board[0][2] == 'X')
+            cout << "Player 1 Wins!";
+        else
+            cout << "Player 2 Wins!";
     }
     else if(board[0][0] == board[1][1] && board[1][1] == board[2][2])
     {
         win = 1;
+        if(board[0][0] == 'X')
+            cout << "Player 1 Wins!";
+        else
+            cout << "Player 2 Wins!";
     }
     else if(board[0][2] == board[1][1] && board[1][1] == board[0][2])
     {
         win = 1;
+        if(board[0][2] == 'X')
+            cout << "Player 1 Wins!";
+        else
+            cout << "Player 2 Wins!";
     }
     else
     {
