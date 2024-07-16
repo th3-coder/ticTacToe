@@ -1,4 +1,4 @@
-//chane to location of headear file
+//change to location of headear file
 #include <"C:\DirectoryLocation"
 #include<iostream>
 using namespace std;
