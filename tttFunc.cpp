@@ -4,14 +4,19 @@ using namespace std;
 
 int checkWin(char board[3][3]);
 
-int gamePlay(int player)
+int gamePlay()
 {
-    int userInput;
-    int win;
+    int player, userInput, win;
+    int counter = 1;
     char xo, board[3][3];
     
     do 
     {
+        counter++;
+        if(counter % 2 == 0)
+            player = 1;
+        else
+            player = 2;
         if(player == 1)
         xo = 'X';   
         else
