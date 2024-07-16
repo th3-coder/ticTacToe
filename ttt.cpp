@@ -1,5 +1,5 @@
-#include "C:\Users\haydo\Desktop\VS\C++\ticTacToe\ticTacToe\ttt.hpp"
-
+//chane to location of headear file
+#include <"C:\DirectoryLocation"
 #include<iostream>
 using namespace std;
 
