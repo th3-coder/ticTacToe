@@ -212,7 +212,7 @@ int checkWin(char board[3][3]){
         else
             cout << "Player 2 Wins!";
     }
-    else if(board[0][2] == board[1][1] && board[1][1] == board[0][2])
+    else if(board[0][2] == board[1][1] && board[1][1] == board[2][0])
     {
         win = 1;
         if(board[0][2] == 'X')
