@@ -3,17 +3,16 @@
 using namespace std;
 
 int gamePlay();
-int checkWin(char board[3][3]);
+int takeInput(char);
+void invalidCheck(int&, bool);
+char decidePlayer(int counter, int player);
+void checkWin(char board[3][3], char, int&);
+
 
 int main(){
-    //declare variables
-    int win;
-    int counter = 1;
 
     system("cls");
-    cout << "X - Player 1" << endl
-         << "Y - Player 2" << endl;
-    cout << "Player 1 Goes First:\n";
+    cout << "X Goes First:\n";
 
     gamePlay();
 
@@ -26,19 +25,20 @@ int gamePlay()
     int player, userInput, win;
     int counter = 1;
     char xo, board[3][3];
-    
     do 
     {
-        for(int i = 0; i < 3; i++)
+        //bool invalid = false;
+        //outputs array in a 3x3 fashion
+        for(int i = 0; i < 3; i++) //columns - iterates 3 times total
         {
-            for(int j = 0; j < 3; j++)
+            for(int j = 0; j < 3; j++) //rows - iterates 3 times for every one loop of the first for loop
             {
                 if(i == 0 && j == 0 && board[i][j] != 'O' && board[i][j] != 'X')
                 {
                     if(userInput == 1)
                     {
                         board[0][0] = xo;
-                        userInput = 10;
+                        userInput = 10; //resets input
                     }                    
                     else
                         board[i][j] = '1';
@@ -123,107 +123,126 @@ int gamePlay()
                     else
                     board[i][j] = '9';
                 }
-            
                     cout << " | " << board[i][j] << " | ";
             }    
                 cout << endl;
             }
         cout << endl;
         counter++;
-        win = checkWin(board);
-
-        if(counter % 2 == 0)
-            player = 1;
-        else
-            player = 2;
-        if(player == 1)
-            xo = 'X';   
-        else
-            xo = 'O';
-
-        if(win == 0)
-        {
-        cout << xo << " - Enter where you want to go(1-9): ";
-        cin >> userInput;
-        }
+        
+        checkWin(board, xo, win);
+        xo = decidePlayer(counter, player);     
+        if(!win)
+            userInput = takeInput(xo);   
+        //invalidCheck(counter, invalid);
     } while(win == 0);
 
     return 1;
 }
+char decidePlayer(int counter, int player){
+    //makes decision for which players turn it is
+    //uses counter which increments for every move
+    if(counter % 2 == 0)
+            return 'X';
+        else
+            return 'O';
+}
+int takeInput(char xo){
+    int userInput;
+        cout << xo << " Move - Enter where you want to go(1-9): ";
+        cin >> userInput;
+        return userInput;
+}
 
-int checkWin(char board[3][3]){
+void invalidCheck(int& counter, bool invalid){
+    //check if X or O is already in position
+    if(invalid){
+        cout << "Invalid Move - Go again" << endl;
+    
+        counter--;
+    }
+}
 
-    int win = 0;
-
+void checkWin(char board[3][3], char xo, int& win){
+    //takes the board, player character, and win signal as inputs
+    //direct reference to win to change in memory
+    int k = 0;
     if(board[0][0] == board[0][1] && board[0][1] == board[0][2])
     {
-        win = 1;
+        
         if(board[0][0] == 'X')
-            cout << "Player 1 Wins!";
+            win = 1;
         else
-            cout << "Player 2 Wins!";
+            win = 2;
 
     }
     else if(board[1][0] == board[1][1] && board[1][1] == board[1][2])
     {
-        win = 1;
         if(board[1][0] == 'X')
-            cout << "Player 1 Wins!";
+            win = 1;
         else
-            cout << "Player 2 Wins!";
+            win = 2;
     }
     else if(board[2][0] == board[2][1] && board[2][1] == board[2][2])
     {
-        win = 1;
         if(board[2][0] == 'X')
-            cout << "Player 1 Wins!";
+            win = 1;
         else
-            cout << "Player 2 Wins!";
+            win = 2;
     }
     else if(board[0][0] == board[1][0] && board[1][0] == board[2][0])
-    {
-        win = 1;
+    {   
         if(board[0][0] == 'X')
-            cout << "Player 1 Wins!";
+            win = 1;
         else
-            cout << "Player 2 Wins!";
+            win = 2;
     }
     else if(board[0][1] == board[1][1] && board[1][1] == board[2][1])
-    {
-        win = 1;
+    {   
         if(board[0][1] == 'X')
-            cout << "Player 1 Wins!";
+            win = 1;
         else
-            cout << "Player 2 Wins!";
+            win = 2;
     }
     else if(board[0][2] == board[1][2] && board[1][2] == board[2][2])
-    {
-        win = 1;
+    {   
         if(board[0][2] == 'X')
-            cout << "Player 1 Wins!";
+            win = 1;
         else
-            cout << "Player 2 Wins!";
+            win = 2;
     }
     else if(board[0][0] == board[1][1] && board[1][1] == board[2][2])
-    {
-        win = 1;
+    {   
         if(board[0][0] == 'X')
-            cout << "Player 1 Wins!";
+            win = 1;
         else
-            cout << "Player 2 Wins!";
+            win = 2;
     }
     else if(board[0][2] == board[1][1] && board[1][1] == board[2][0])
     {
-        win = 1;
         if(board[0][2] == 'X')
-            cout << "Player 1 Wins!";
+            win = 1;
         else
-            cout << "Player 2 Wins!";
+            win = 2;
     }
     else
     {
         win = 0;
     }
 
-    return win;
+    //checks for tie
+    for(int i = 0; i < 3; i++){
+        for(int j = 0; j < 3; j++){
+            if(board[i][j] == 'X' || board[i][j] == 'O')
+                k++;
+        }
+    }
+    if(win){
+        cout << "---------- ";
+        cout << xo << " Wins!";
+        cout << " ----------";
+        cout << endl;
+    } else if(k > 8)
+        cout << "whoops... Cats game" <<endl;
+    
 }
